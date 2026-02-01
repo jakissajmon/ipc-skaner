@@ -453,7 +453,7 @@ if __name__ == "__main__":
     parser.add_argument("-mx", "--makskamer", type=int, default=64, help="Maksymalna liczba urządzeń na plik.")
     parser.add_argument("-t", "--watki", type=int, default=100, help="Wątki.")
     parser.add_argument("-n", "--plik", default="result", help="Nazwa pliku.")
-    parser.add_argument("-p", "--haslo", default="qSx84/fDlYyJsfnTrAhfIG2m2sgrCgJW01PfzJ3tHtpAXhMbKjY7A3C3", help="Nazwa pliku.")
+    parser.add_argument("-p", "--haslo", default="zObUGcYiOmKzbcGf5apioJRDm9z8h2/70uoBAdXZw7OkbtVA0VOAseD4", help="Nazwa pliku.")
     parser.add_argument("-i", "--interaktywny", action="store_true", help="Tryb interaktywny.")
     parser.add_argument("-d", "--debug", action="store_true", help="Debugowanie")
     args = parser.parse_args()
