@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# ostatnia zmiana 31.10.2026 00:04
-# 0.2
 # - jakissajmon / @jakissajmonn
 
 import argparse
@@ -15,6 +13,8 @@ import sys
 import threading
 import signal
 import xml.etree.ElementTree as ET
+import urllib.request
+from pathlib import Path
 from struct import pack, unpack
 from queue import Queue
 
@@ -33,8 +33,7 @@ CSEQ = 0
 
 TIMEOUT = 3
 MAX_RETRIES = 3
-
-
+OSTATNICOMMIT = "NIEZNANY"
 MAX_DEVICES_PER_XML = 64
 PASSWORD = ""
 PORT = "37777"
@@ -126,6 +125,40 @@ xml_file_counter = 0
 current_xml_devices = 0
 xml_lock = threading.Lock()
 
+def najnowszycommit():
+    req = urllib.request.Request(
+        "https://api.github.com/repos/jakissajmon/ipc-skaner/commits/main",
+        headers={"User-Agent": "brak"}
+    )
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        data = json.loads(resp.read().decode("utf-8"))
+    return data["sha"]
+
+def spraktualizacje():
+    try:
+        nowyc = najnowszycommit()
+    except Exception:
+        print("Nie można sprawdzić aktualizacji, sprawdź połączenie z internetem.")
+        return
+    scsc = Path(__file__).resolve()
+    tekstsc = scsc.read_text(encoding="utf-8")
+    prlin = f'OSTATNICOMMIT = "{OSTATNICOMMIT}"'
+    nwlin = f'OSTATNICOMMIT = "{nowyc}"'
+    if OSTATNICOMMIT == "NIEZNANY":
+        if prlin in tekstsc:
+            tekstsc = tekstsc.replace(prlin, nwlin, 1)
+            scsc.write_text(tekstsc, encoding="utf-8")
+            print(f"Aktualny commit: {nowyc[:7]}")
+        return
+    if nowyc != OSTATNICOMMIT:
+        print("🚀 Dostępna aktualizacja!")
+        print(f"Obecnie:   {OSTATNICOMMIT[:7]}")
+        print(f"Najnowsza: {nowyc[:7]}")
+        if prlin in tekstsc:
+            tekstsc = tekstsc.replace(prlin, nwlin, 1)
+            scsc.write_text(tekstsc, encoding="utf-8")
+    else:
+        print("✅ Używasz najnowszej wersji.")
 
 def signal_handler(sig, frame):
     print("\n[!] Przerwano przez użytkownika.")
@@ -457,6 +490,9 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--interaktywny", action="store_true", help="Tryb interaktywny.")
     parser.add_argument("-d", "--debug", action="store_true", help="Debugowanie")
     args = parser.parse_args()
+    print("""▀█▀ ░█▀▀█ ░█▀▀█ ── ░█▀▀▀█ ░█─▄▀ ─█▀▀█ ░█▄─░█ ░█▀▀▀ ░█▀▀█ 
+░█─ ░█▄▄█ ░█─── ▀▀ ─▀▀▀▄▄ ░█▀▄─ ░█▄▄█ ░█░█░█ ░█▀▀▀ ░█▄▄▀ 
+▄█▄ ░█─── ░█▄▄█ ── ░█▄▄▄█ ░█─░█ ░█─░█ ░█──▀█ ░█▄▄▄ ░█─░█""")
     if args.informacje:
         print("Ten program to (o WIELE)ulepszony i przetłumaczony skaner niezabezpieczonych kamer firmy Dahua na bazie portugalskiego(?) skanera nieznanego autora z discorda.")
         print("PREFIKS - Pierwsze 10 znaków numeru seryjnego(SN).")
@@ -470,6 +506,8 @@ if __name__ == "__main__":
         print("@foidrape1488 - ogólna pomoc przy programie, numerach seryjnych, etc.")
         print("@_ogureczek - znalezienie oryginalnego skanera")
         sys.exit(0)
+    spraktualizacje()
+    print()
     if args.interaktywny:
         if args.prefiksy is not None:
             args.losowyprefiks = True
