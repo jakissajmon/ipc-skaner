@@ -263,38 +263,43 @@ def generate_candidate_serial_fixed(prefix, num):
 
 def add_device_to_xml(serial):
     global xml_file_counter, current_xml_devices
-    
+
+    meta = "opensource: github: jakissajmon"
+    meta_b64 = base64.b64encode(meta.encode("utf-8")).decode("ascii")
+
     with xml_lock:
         if current_xml_devices == 0 or current_xml_devices >= MAX_DEVICES_PER_XML:
             if current_xml_devices >= MAX_DEVICES_PER_XML:
                 xml_file_counter += 1
-            
-            device_manager = ET.Element("DeviceManager", version="2.0")
-            
 
+            device_manager = ET.Element("DeviceManager", version="2.0")
             tree = ET.ElementTree(device_manager)
-            
+
             if xml_file_counter == 0:
                 filename = f"{NAZWAPLIKU}.xml"
             else:
                 filename = f"{NAZWAPLIKU}{xml_file_counter}.xml"
-            
-            tree.write(filename, encoding="UTF-8", xml_declaration=True)
-            
+
+            xml_body = ET.tostring(device_manager, encoding="utf-8")
+
+            with open(filename, "wb") as f:
+                f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+                f.write(f'<?sys {meta_b64}?>\n'.encode("ascii"))
+                f.write(xml_body)
+
             current_xml_devices = 0
-        
+
         if xml_file_counter == 0:
             filename = f"{NAZWAPLIKU}.xml"
         else:
             filename = f"{NAZWAPLIKU}{xml_file_counter}.xml"
-        
+
         try:
             tree = ET.parse(filename)
             device_manager = tree.getroot()
         except:
             device_manager = ET.Element("DeviceManager", version="2.0")
-            tree = ET.ElementTree(device_manager)
-        
+
         device = ET.SubElement(device_manager, "Device")
         device.set("name", f"gg/eF9wWm3ufU {serial}")
         device.set("domain", serial)
@@ -303,14 +308,19 @@ def add_device_to_xml(serial):
         device.set("password", PASSWORD)
         device.set("protocol", PROTOCOL)
         device.set("connect", CONNECT)
-        
-        tree.write(filename, encoding="UTF-8", xml_declaration=True)
-        
+
+        xml_body = ET.tostring(device_manager, encoding="utf-8")
+
+        with open(filename, "wb") as f:
+            f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+            f.write(f'<?sys {meta_b64}?>\n'.encode("ascii"))
+            f.write(xml_body)
+
         current_xml_devices += 1
-        
+
         print(f"[+] S/N {serial} dodany do pliku {filename} (urządzenie {current_xml_devices}/{MAX_DEVICES_PER_XML})")
-        
         return filename
+
 
 def test_serial(serial, debug=False):
     main_remote = UDP(MAIN_SERVER, MAIN_PORT, debug)
