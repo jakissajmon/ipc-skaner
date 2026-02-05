@@ -1,19 +1,72 @@
-## LICENSE (PL)
+LICENSE (PL)
 
 Copyright © 2026 jakissajmonn
-
 Wszelkie prawa zastrzeżone.
 
-DOZWOLONE:
+DOZWOLONE
+Niniejsza licencja zezwala na:
 - używanie kodu w celach prywatnych i niekomercyjnych,
 - modyfikowanie kodu,
-- rozpowszechnianie kodu, również w formie zmodyfikowanej,
-  pod warunkiem zachowania informacji o autorze
-  oraz niniejszej licencji.
+- kopiowanie oraz rozpowszechnianie kodu, również w formie zmodyfikowanej,
 
-ZABRANIA SIĘ:
+pod warunkiem, że:
+- zachowana zostanie informacja o autorze,
+- dołączona zostanie niniejsza licencja,
+- nie zostaną naruszone postanowienia dotyczące zakazu komercyjnego użycia.
+
+ZABRANIA SIĘ
+Bez uprzedniej, pisemnej zgody autora zabrania się:
 - sprzedaży kodu lub jego części,
-- wykorzystywania kodu w celach komercyjnych,
+- wykorzystywania kodu w całości lub części w celach komercyjnych,
 - pobierania opłat za dostęp do kodu lub jego modyfikacji,
+- wykorzystywania kodu w produktach, usługach lub projektach generujących
+  bezpośredni lub pośredni zysk.
 
-bez uprzedniej pisemnej zgody autora.
+Cele komercyjne obejmują w szczególności (ale nie wyłącznie):
+- użycie kodu w działalności gospodarczej,
+- użycie kodu w produktach lub usługach oferowanych odpłatnie,
+- użycie kodu w projektach finansowanych, sponsorowanych lub monetyzowanych
+  (np. reklamy, subskrypcje, płatny support).
+
+BRAK GWARANCJI
+Kod udostępniany jest „TAK JAK JEST”, bez jakiejkolwiek gwarancji,
+wyraźnej lub dorozumianej.
+Autor nie ponosi odpowiedzialności za jakiekolwiek szkody wynikające z użycia kodu.
+
+
+----------------------------------------------------------------
+
+
+LICENSE (EN)
+
+Copyright © 2026 jakissajmonn
+All rights reserved.
+
+PERMISSIONS
+This license grants permission to:
+- use the code for private and non-commercial purposes,
+- modify the code,
+- copy and redistribute the code, including modified versions,
+
+provided that:
+- the author attribution is preserved,
+- this license is included with the code,
+- the non-commercial restriction is respected.
+
+PROHIBITIONS
+Without prior written consent from the author, it is prohibited to:
+- sell the code or any part of it,
+- use the code, in whole or in part, for commercial purposes,
+- charge fees for access to the code or its modifications,
+- use the code in products, services, or projects that generate direct
+  or indirect profit.
+
+Commercial purposes include, but are not limited to:
+- use in business activities,
+- use in paid products or services,
+- use in monetized or sponsored projects
+  (e.g. advertisements, subscriptions, paid support).
+
+DISCLAIMER
+The code is provided “AS IS”, without warranty of any kind.
+The author shall not be liable for any damages arising from the use of the code.
