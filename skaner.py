@@ -12,6 +12,7 @@ import socket
 import sys
 import threading
 import signal
+import base64
 import xml.etree.ElementTree as ET
 import urllib.request
 from pathlib import Path
@@ -120,6 +121,8 @@ PREFIXYNIEZNANE = [
     "5C014A6PAZ"
 ]
 
+b1 = "VGVuIHNrYW5lciBqZXN0IGRhcm1vd3kgaSBvcGVuLXNvdXJjZS4gSmXFm2xpIGt1cGnFgmXFmyBnbyBvZCBrb2dvxZsgaW5uZWdvLCB6b3N0YcWCZcWbIG9zenVrYW55IGkgZG9tYWdhaiBzacSZIHp3cm90dS4="
+b2 = "VcW8eXdhbmllIGdvIGRvIGNlbMOzdyBrb21lcmN5am55Y2ggamVzdCB6xYJhbWFuaWVtIGxpY2VuY2ppLiBKZWR5bnkgb2ZpY2phbG55IHNlcndlciBEaXNjb3JkIHRvICIuZ2cvZUY5d1dtM3VmVSIu"
 
 xml_file_counter = 0
 current_xml_devices = 0
@@ -154,6 +157,8 @@ def spraktualizacje():
         print("🚀 Dostępna aktualizacja!")
         print(f"Obecnie:   {OSTATNICOMMIT[:7]}")
         print(f"Najnowsza: {nowyc[:7]}")
+        print("Pobierz najnowszą wersję z:")
+        print("https://github.com/jakissajmon/ipc-skaner")
         if prlin in tekstsc:
             tekstsc = tekstsc.replace(prlin, nwlin, 1)
             scsc.write_text(tekstsc, encoding="utf-8")
@@ -507,6 +512,9 @@ if __name__ == "__main__":
         print("@_ogureczek - znalezienie oryginalnego skanera")
         sys.exit(0)
     spraktualizacje()
+    print()
+    print(f"{base64.b64decode(b1).decode('utf-8')}")
+    print(f"{base64.b64decode(b2).decode('utf-8')}")
     print()
     if args.interaktywny:
         if args.prefiksy is not None:
