@@ -390,7 +390,7 @@ def worker(q, prefix, valid_serials, lock, debug=False, losowyprefix=False, wszy
                 try:
                     if test_serial(candidate_serial, debug):
                         with lock:
-                            print(f"[+] S/N prawidłowy: {candidate_serial} (con num={num})")
+                            print(f"[+] S/N prawidłowy: {candidate_serial}")
                             valid_serials.append((num, candidate_serial))
                 except Exception as e:
                     if debug:
@@ -399,13 +399,13 @@ def worker(q, prefix, valid_serials, lock, debug=False, losowyprefix=False, wszy
             try:
                 if test_serial(candidate_serial, debug):
                     with lock:
-                        print(f"[+] S/N prawidłowy: {candidate_serial} (con num={num})")
+                        print(f"[+] S/N prawidłowy: {candidate_serial}")
                         valid_serials.append((num, candidate_serial))
             except Exception as e:
                 if debug:
                     print(f"Błąd w próbie z S/N {candidate_serial}: {e}")
         q.task_done()
-def brute_force_fixed(prefix, max_range, debug=False, watki=250, losowe=False, losowesn=False, wszystkieprefixy=False, suffix=00000):
+def brute_force_fixed(prefix, max_range, debug=False, watki=250, losowe=False, losowesn=False, wszystkieprefixy=False, suffix=0):
     q = Queue()
     nums = list(range(max_range))
     putst = False
@@ -541,10 +541,10 @@ if __name__ == "__main__":
             args.suffix = numer_pyt("Podaj swój suffix: ")
     if args.prefiksy is None and args.prefix is None:
         parser.error("lista prefiksów jest wymagana.")
-    if sum([args.losowyprefiks, args.wielelosowych, args.wszystkieprefiksy]) > 1:
-        parser.error("Wybierz jeden tryb(-r, -mr, -ma).")
+    if sum([args.losowyprefiks, args.wielelosowych, args.wszystkieprefiksy]) != 1 and args.prefix is None:
+        parser.error("Wybierz tryb(-r, -mr, -ma) lub prefix(-pr).")
     if args.prefix and len(args.prefix) != 10:
-        parser.error("należy podać prefix kamery.")
+        parser.error("należy podać prawidłowy prefix kamery.")
     if args.prefiksy is not None:
         if os.path.isfile(args.prefiksy):
             with open(args.prefiksy, "r", encoding="utf-8") as f:
@@ -552,13 +552,17 @@ if __name__ == "__main__":
                     lin = line.strip()
                     if len(lin) == 10:
                         PREFIXY.append(lin)
+            if len(PREFIXY) == 0:
+                parser.error("Plik z prefiksami jest pusty lub nie zawiera poprawnych prefiksów.")
+        else:
+            parser.error("Plik z prefiksami nie istnieje.")
     if args.losowyprefiks:
         uzywanyprefix = random.choice(PREFIXY)
     elif args.wielelosowych or args.wszystkieprefiksy:
         uzywanyprefix = "losowy"
     else:
         uzywanyprefix = args.prefix
-    if len(uzywanyprefix) != 10 and not args.wielelosowych and not args.wszystkieprefiksy:
+    if uzywanyprefix is not None and len(uzywanyprefix) != 10 and not args.wielelosowych and not args.wszystkieprefiksy:
         print("Prefix musi mieć 10 znaków.")
         sys.exit(1)
 
