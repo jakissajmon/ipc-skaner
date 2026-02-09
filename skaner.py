@@ -159,9 +159,6 @@ def spraktualizacje():
         print(f"Najnowsza: {nowyc[:7]}")
         print("Pobierz najnowszą wersję z:")
         print("https://github.com/jakissajmon/ipc-skaner")
-        if prlin in tekstsc:
-            tekstsc = tekstsc.replace(prlin, nwlin, 1)
-            scsc.write_text(tekstsc, encoding="utf-8")
     else:
         print("✅ Używasz najnowszej wersji.")
 
