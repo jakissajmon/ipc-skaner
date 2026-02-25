@@ -122,7 +122,7 @@ PREFIXYNIEZNANE = [
 ]
 
 b1 = "VGVuIHNrYW5lciBqZXN0IGRhcm1vd3kgaSBvcGVuLXNvdXJjZS4gSmXFm2xpIGt1cGnFgmXFmyBnbyBvZCBrb2dvxZsgaW5uZWdvLCB6b3N0YcWCZcWbIG9zenVrYW55IGkgZG9tYWdhaiBzacSZIHp3cm90dS4="
-b2 = "VcW8eXdhbmllIGdvIGRvIGNlbMOzdyBrb21lcmN5am55Y2ggamVzdCB6xYJhbWFuaWVtIGxpY2VuY2ppLiBKZWR5bnkgb2ZpY2phbG55IHNlcndlciBEaXNjb3JkIHRvICIuZ2cvZUY5d1dtM3VmVSIu"
+b2 = "VcW8eXdhbmllIGdvIGRvIGNlbMOzdyBrb21lcmN5am55Y2ggamVzdCB6xYJhbWFuaWVtIGxpY2VuY2ppIGkgamVzdCBuaWV6Z29kbmUgeiBwcmF3ZW0uDQpOaWUgYmlvcsSZIG9kcG93aWVkemlhbG5vxZtjaSB6YSBqYWtpZWtvbHdpZWsgc3prb2R5IHd5cnrEhWR6b25lIHR5bSBwcm9qZWt0ZW0uDQpGaXJtYSBEYWh1YSBwcmFjdWplIG5hZCBwYXRjaGVtIGJsb2t1asSFY3ltIHNrYW5lcnkgLSB3a3LDs3RjZSBtb2fEhSBwcnplc3RhxIcgZHppYcWCYcSHLg=="
 
 xml_file_counter = 0
 current_xml_devices = 0
@@ -261,9 +261,6 @@ def generate_candidate_serial_fixed(prefix, num):
 def add_device_to_xml(serial):
     global xml_file_counter, current_xml_devices
 
-    meta = "opensource: github: jakissajmon"
-    meta_b64 = base64.b64encode(meta.encode("utf-8")).decode("ascii")
-
     with xml_lock:
         if current_xml_devices == 0 or current_xml_devices >= MAX_DEVICES_PER_XML:
             if current_xml_devices >= MAX_DEVICES_PER_XML:
@@ -281,7 +278,7 @@ def add_device_to_xml(serial):
 
             with open(filename, "wb") as f:
                 f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-                f.write(f'<?sys {meta_b64}?>\n'.encode("ascii"))
+                f.write(f'<?sys b3BlbnNvdXJjZTogZ2l0aHViOiBqYWtpc3Nham1vbg==?>\n'.encode("ascii"))
                 f.write(xml_body)
 
             current_xml_devices = 0
@@ -298,7 +295,7 @@ def add_device_to_xml(serial):
             device_manager = ET.Element("DeviceManager", version="2.0")
 
         device = ET.SubElement(device_manager, "Device")
-        device.set("name", f"gg/eF9wWm3ufU {serial}")
+        device.set("name", f"ipc-skaner @jakissajmon {serial}")
         device.set("domain", serial)
         device.set("port", PORT)
         device.set("username", USERNAME_XML)
@@ -310,7 +307,7 @@ def add_device_to_xml(serial):
 
         with open(filename, "wb") as f:
             f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-            f.write(f'<?sys {meta_b64}?>\n'.encode("ascii"))
+            f.write(f'<?sys b3BlbnNvdXJjZTogZ2l0aHViOiBqYWtpc3Nham1vbg==?>\n'.encode("ascii"))
             f.write(xml_body)
 
         current_xml_devices += 1
@@ -501,6 +498,8 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--haslo", default="zObUGcYiOmKzbcGf5apioJRDm9z8h2/70uoBAdXZw7OkbtVA0VOAseD4", help="Hasło, którego chcesz użyć.")
     parser.add_argument("-i", "--interaktywny", action="store_true", help="Tryb interaktywny.")
     parser.add_argument("-d", "--debug", action="store_true", help="Debugowanie")
+    # autor: jakissajmon (GH)
+    # ostrzeżenie: przed użyciem tego kodu do jakichkolwiek celów, zapoznaj się z licencją dostępną na GitHub. Użycie do celów komercyjnych(m.in. sprzedaż) jego jest zakazana.
     args = parser.parse_args()
     print("""▀█▀ ░█▀▀█ ░█▀▀█ ── ░█▀▀▀█ ░█─▄▀ ─█▀▀█ ░█▄─░█ ░█▀▀▀ ░█▀▀█ 
 ░█─ ░█▄▄█ ░█─── ▀▀ ─▀▀▀▄▄ ░█▀▄─ ░█▄▄█ ░█░█░█ ░█▀▀▀ ░█▄▄▀ 
@@ -510,8 +509,8 @@ if __name__ == "__main__":
         print("PREFIKS - Pierwsze 10 znaków numeru seryjnego(SN).")
         print("SUFFIKS - Ostatnie 5 znaków numeru seryjnego(SN).")
         print()
-        print("Discord >> .gg/eF9wWm3ufU")
-        print("Autor >> jakissajmon (dc: @jakissajmonn)")
+        print("Discord >> zbanowany")
+        print("Autor >> jakissajmon (nowy dc: @jakissajmonnn)")
         print()
         print("OSTRZEŻENIE: Nie odpowiadam(-y) za jakiekolwiek szkody wyrządzone tym programem. Zbyt duża liczba wątków może doprowadzić do awarii lub znacznego spowolnienia internetu(zalecane jest używanie VPS-ów). Wszystko robisz na własną odpowiedzialność.")
         print("Współautorzy/Podziękowania(dc):")
@@ -519,6 +518,13 @@ if __name__ == "__main__":
         print("@_ogureczek - znalezienie oryginalnego skanera")
         sys.exit(0)
     spraktualizacje()
+    print()
+    try:
+        with urllib.request.urlopen("https://gist.githubusercontent.com/jakissajmon/ab32eed5038496c2efc7695caa3ba9de/raw/gistfile1.txt", timeout=10) as response:
+            print(response.read().decode("utf-8"))
+    except:
+        print("Nie można połączyć z GIST MOTD. Sprawdź połączenie internetowe, dostępność aktualizacji na GitHub(@jakissajmon) i spróbuj ponownie.")
+        sys.exit(0)
     print()
     print(f"{base64.b64decode(b1).decode('utf-8')}")
     print(f"{base64.b64decode(b2).decode('utf-8')}")
