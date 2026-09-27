@@ -4,7 +4,7 @@
 > [!CAUTION]
 > This software is PoC(Proof of Concept) for educational purposes only. Me or any contributors are not responsible for any damages done using this software. 
 
-This software looks for unsecured **Dahua** cameras, generating a file with the Serial Number, and the default password `admin`, which can be imported into [SmartPSS](https://dahuawiki.com/SmartPSS) or [SmartPSS Lite](https://dahuawiki.com/SmartPSS_Lite). It's based on a Portuguese scanned from Discord(unknown author).
+This software looks for unsecured **Dahua** cameras, generating a file with the Serial Number, and the default password `admin`, which can be imported into [SmartPSS](https://dahuawiki.com/SmartPSS) or [SmartPSS Lite](https://dahuawiki.com/SmartPSS_Lite). It's based on a ~~Portuguese scanner from Discord(unknown author)~~ [this](https://github.com/itres-labs/CVE-2025-31702) repo.
 **Not all generated cameras will work. Some have other passwords, some are off or not configured. It's random.**
 
 More info in my [Discord](https://discord.gg/eF9wWm3ufU).
