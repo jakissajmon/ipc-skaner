@@ -4,7 +4,7 @@
 > [!CAUTION]
 > Ten program to PoC(Proof of Concept) dla celów naukowych. Nie odpowiadam za jakiekolwiek szkody wyrządzone przy użyciu tego oprogramowania. Wszystko robisz na własną odpowiedzialność.
 
-Ten program szuka niezabezpieczonych kamer firmy **Dahua**, generując plik z numerem seryjnym i domyślnym hasłem `admin`, który może zostać zaimportowany do programu [SmartPSS](https://dahuawiki.com/SmartPSS) lub [SmartPSS Lite](https://dahuawiki.com/SmartPSS_Lite). Jest zbudowany na bazie portugalskiego skanera z Discorda(autor jest mi nieznany).
+Ten program szuka niezabezpieczonych kamer firmy **Dahua**, generując plik z numerem seryjnym i domyślnym hasłem `admin`, który może zostać zaimportowany do programu [SmartPSS](https://dahuawiki.com/SmartPSS) lub [SmartPSS Lite](https://dahuawiki.com/SmartPSS_Lite). Jest zbudowany na bazie ~~portugalskiego skanera z Discorda(autor jest mi nieznany)~~ [tego](https://github.com/itres-labs/CVE-2025-31702) repozytorium.
 **Nie wszystkie wygenerowane kamery będą działały. Niektóre mają losowe hasła, są wyłączone albo nie są skonfigurowane. Jest to losowe.**
 
 Więcej informacji na [Discord](https://discord.gg/eF9wWm3ufU).
